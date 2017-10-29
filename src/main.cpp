@@ -1,11 +1,12 @@
 #include <Homie.h>
 #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
 #include "climate.hpp"
+#include "display.hpp"
 
 HomieNode climateNode("climate", "climate");
-LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // Set the LCD I2C address
+Display display;
 Climate climate;
+bool displayPresent;
 
 void updateClimate(ClimateDatum datum) {
   String temperatureF = String(datum.getTemperatureF());
@@ -13,10 +14,10 @@ void updateClimate(ClimateDatum datum) {
   climateNode.setProperty("temperature.c").send(String(datum.getTemperatureC()));
   climateNode.setProperty("temperature.f").send(temperatureF);
   climateNode.setProperty("humidity").send(humidity);
-  lcd.setCursor(0,0);
-  lcd.print(temperatureF);
-  lcd.setCursor(0,1);
-  lcd.print(humidity);
+  if( displayPresent ) {
+    display.print(0, temperatureF);
+    display.print(1, humidity);
+  }
 }
 
 void setupHandler() {
@@ -24,10 +25,10 @@ void setupHandler() {
   climateNode.advertise("temperature.f");
   climateNode.advertise("humidity");
   climate.setup(updateClimate);
-  // initialize library
-  lcd.begin(16,2);
-  // blink backlight three times
-  lcd.backlight();
+  displayPresent = Display_isPresent();
+  if( displayPresent ) {
+    display.init();
+  }
 }
 
 void loopHandler() {
