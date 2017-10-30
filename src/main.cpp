@@ -37,7 +37,7 @@ void loopHandler() {
 
 void setup() {
   Serial.begin(115200);
-  Homie_setFirmware("ness-multi-sensor", "1.0.0");
+  Homie_setFirmware("ness-multi-sensor", "1.0.1");
   Homie
     .setSetupFunction(setupHandler)
     .setLoopFunction(loopHandler);

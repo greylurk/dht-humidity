@@ -4,7 +4,7 @@
 Climate::Climate() :
   _dht(),
   _datum(0, 0) {
-  _TEMPERATURE_INTERVAL = _dht.getMinimumSamplingPeriod();
+  _TEMPERATURE_INTERVAL = 60000; //_dht.getMinimumSamplingPeriod();
   _lastDHTRead = 0;
 }
 
