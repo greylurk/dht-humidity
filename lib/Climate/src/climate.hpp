@@ -1,8 +1,7 @@
+#pragma once
+
 #include <Homie.h>
 #include <DHT.h>
-
-#ifndef climate_h
-#define climate_h
 
 #define DHT_PIN 2
 
@@ -39,5 +38,3 @@ private:
     unsigned long _lastDHTRead;
     int _TEMPERATURE_INTERVAL;
 };
-
-#endif

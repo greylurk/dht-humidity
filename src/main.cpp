@@ -1,7 +1,7 @@
 #include <Homie.h>
 #include <Wire.h>
-#include "climate.hpp"
-#include "display.hpp"
+#include <climate.hpp>
+#include <display.hpp>
 
 HomieNode climateNode("climate", "climate");
 Display display;
